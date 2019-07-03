@@ -5,7 +5,7 @@ var y = canvas.height - 30;
 var dx = 2;
 var dy = -2;
 var ballRadius = 10;
-var color = "#0095DD"
+var color = "white"
 var paddleHeight = 10;
 var paddleWidth = 75;
 
@@ -14,6 +14,25 @@ var paddleXB = (canvas.width - paddleWidth) / 2;
 
 var rightPressed = false;
 var leftPressed = false;
+
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+
+function keyDownHandler(e) {
+  if (e.key == "Right" || e.key == "ArrowRight") {
+    rightPressed = true;
+  } else if (e.key == "Left" || e.key == "ArrowLeft") {
+    leftPressed = true;
+  }
+}
+
+function keyUpHandler(e) {
+  if (e.key == "Right" || e.key == "ArrowRight") {
+    rightPressed = false;
+  } else if (e.key == "Left" || e.key == "ArrowLeft") {
+    leftPressed = false;
+  }
+}
 
 function drawBall() {
   ctx.beginPath();
@@ -45,17 +64,23 @@ function draw() {
   drawBall();
   drawPaddleBottom();
   drawPaddleTop();
-  x += dx;
-  y += dy;
+
   if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
     dx = -dx;
-    color = "#" + ((1 << 24) * Math.random() | 0).toString(16);
+  } else if (y + dy > canvas.height - ballRadius) {
+    if (x > paddleXB && x < paddleXB + paddleWidth) {
+      dy = -dy;
+    }
+  } else if (y + dy < ballRadius) {
+    if (x > paddleXT && x < paddleXT + paddleWidth) {
+      dy = -dy;
+    } else {
+      alert("GAME OVER");
+      document.location.reload();
+      clearInterval(interval); //Needed by Chrome to end the game correctly
+    }
+  }
 
-  }
-  if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
-    dy = -dy;
-    color = "#" + ((1 << 24) * Math.random() | 0).toString(16);
-  }
 
   if (rightPressed && paddleXB < canvas.width - paddleWidth) {
     paddleXB += 7;
@@ -69,25 +94,9 @@ function draw() {
     paddleXT += 7;
   }
 
+  x += dx;
+  y += dy;
+
 }
 
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
-
-function keyDownHandler(e) {
-  if (e.key == "Right" || e.key == "ArrowRight") {
-    rightPressed = true;
-  } else if (e.key == "Left" || e.key == "ArrowLeft") {
-    leftPressed = true;
-  }
-}
-
-function keyUpHandler(e) {
-  if (e.key == "Right" || e.key == "ArrowRight") {
-    rightPressed = false;
-  } else if (e.key == "Left" || e.key == "ArrowLeft") {
-    leftPressed = false;
-  }
-}
-
-setInterval(draw, 10);
+var interval = setInterval(draw, 10);
