@@ -8,12 +8,11 @@ var ballRadius = 10;
 var color = "white"
 var paddleHeight = 10;
 var paddleWidth = 75;
-
 var paddleXT = (canvas.width - paddleWidth) / 2;
 var paddleXB = (canvas.width - paddleWidth) / 2;
-
 var rightPressed = false;
 var leftPressed = false;
+var score = 0;
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -59,17 +58,37 @@ function drawPaddleTop() {
   ctx.closePath();
 }
 
+function drawScore1() {
+  ctx.font = "15px Arial";
+  ctx.fillStyle = "white"
+  ctx.fillText("Score: " + score, 8, 20);
+}
+
+function drawScore2() {
+  ctx.font = "15px Arial";
+  ctx.fillStyle = "white"
+  ctx.fillText("Score: " + score, 465, 465);
+}
+
+
+//Draw is the main game function and what enables pong
+
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBall();
   drawPaddleBottom();
   drawPaddleTop();
-
+  drawScore1();
+  drawScore2();
   if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
     dx = -dx;
   } else if (y + dy > canvas.height - ballRadius) {
     if (x > paddleXB && x < paddleXB + paddleWidth) {
       dy = -dy;
+    } else {
+      alert("GAME OVER");
+      document.location.reload();
+      clearInterval(interval); //Needed by Chrome to end the game correctly
     }
   } else if (y + dy < ballRadius) {
     if (x > paddleXT && x < paddleXT + paddleWidth) {
