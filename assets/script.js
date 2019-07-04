@@ -2,8 +2,8 @@ var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var x = canvas.width / 2;
 var y = canvas.height - 30;
-var dx = 1;
-var dy = 1;
+var dx = 3;
+var dy = -3;
 var ballRadius = 10;
 var color = "white"
 var paddleHeight = 10;
@@ -61,44 +61,24 @@ function drawPaddleTop() {
 
 function ballReset() {
   x = canvas.width / 2;
-  y = canvas.height - 240;
-  if (dx == 2 || dy == 2) {
-    dx = 2;
-    dy = -2;
-  } else if (dx == -2 || dy == -2) {
-    dx = -2;
-    dy = 2;
-  }
+  y = canvas.height - 220;
+  dx = 3;
+  dy = -3;
 }
-
-/*function drawScore1() {
-  ctx.font = "15px Arial";
-  ctx.fillStyle = "white"
-  ctx.fillText("Score: " + scorePlayer1, 8, 25);
-}
-
-function drawScore2() {
-  ctx.font = "15px Arial";
-  ctx.fillStyle = "white"
-  ctx.fillText("Score: " + scorePlayer2, 465, 465);
-} */
-
-
-//Draw is the main game function and what enables pong
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBall();
   drawPaddleBottom();
   drawPaddleTop();
-  // drawScore1();
-  //drawScore2();
 
   if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
     dx = -dx;
   } else if (y + dy > canvas.height - ballRadius) {
     if (x > paddleXB && x < paddleXB + paddleWidth) {
       dy = -dy;
+    } else if (document.getElementById("computerScore").innerHTML == 9) {
+      $("#you-lose-modal").modal();
     } else {
       document.getElementById("computerScore").innerHTML = scoreComputer++;
       ballReset();
@@ -106,6 +86,9 @@ function draw() {
   } else if (y + dy < ballRadius) {
     if (x > paddleXT && x < paddleXT + paddleWidth) {
       dy = -dy;
+      dy++;
+    } else if (document.getElementById("playerOneScore").innerHTML == 9) {
+      $("#you-win-modal").modal();
     } else {
       document.getElementById("playerOneScore").innerHTML = scorePlayerOne++;
       ballReset();
@@ -113,21 +96,21 @@ function draw() {
   }
 
 
-  if (rightPressed && paddleXB < canvas.width - paddleWidth) {
-    paddleXB += 7;
+  if (rightPressed && paddleXB < canvas.width - paddleWidth + 2) {
+    paddleXB += 10;
   } else if (leftPressed && paddleXB > 0) {
-    paddleXB -= 7;
+    paddleXB -= 10;
   }
 
   if (rightPressed && paddleXT > 0) {
-    paddleXT -= 7;
-  } else if (leftPressed && paddleXT < canvas.width - paddleWidth) {
-    paddleXT += 7;
+    paddleXT -= 10;
+  } else if (leftPressed && paddleXT < canvas.width - paddleWidth + 2) {
+    paddleXT += 10;
   }
 
   x += dx;
   y += dy;
 
-}
+  requestAnimationFrame(draw);
 
-var interval = setInterval(draw, 10);
+}

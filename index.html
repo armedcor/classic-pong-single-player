@@ -6,23 +6,105 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Breakout 2D</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
 
 </head>
 
 <body>
+
+
+
   <h2>Player one:</h2>
   <h3 id="playerOneScore">0</h3>
 
   <h2>Computer:</h2>
   <h3 id="computerScore">0</h3>
+
+
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#how-to-play-modal"
+    onclick="location.reload" onclick="endGame()">
+    How to play
+  </button>
+
+
   <canvas id="myCanvas" width="420" height="550"></canvas>
+
+
+  <button type="button" class="btn btn-danger" onclick="draw()">Press to Start</button>
+
+
+  <div id="how-to-play-modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">How to Play</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Single Payer Pong is a game that tests your skills against the PC.</p>
+          <p>Control your bottom paddle using the left and right arrow keys.</p>
+          <p>The objective of the game is to get the ball behind the AI controlled paddle to score a point.</p>
+          <p>The first player to get to 10 wins!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Play
+            Pong!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="you-lose-modal" class="modal" tableindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>YOU LOSE!!</p>
+          <p>Hard Luck!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="you-win-modal" class="modal" tableindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>CONGRATULATIONS</p>
+          <p>You win!!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 </body>
 
 <footer>
 
 </footer>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!--main game JS file-->
 <script src="assets/script.js"></script>
 
 </html>
