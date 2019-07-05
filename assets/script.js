@@ -1,7 +1,7 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var x = canvas.width / 2;
-var y = canvas.height - 30;
+var y = canvas.height / 2;
 var dx = 3;
 var dy = -3;
 var ballRadius = 10;
@@ -15,8 +15,13 @@ var leftPressed = false;
 var scoreComputer = 1;
 var scorePlayerOne = 1;
 
+
+
+
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
+
+window.onload(drawBall(), drawPaddleBottom(), drawPaddleTop());
 
 function keyDownHandler(e) {
   if (e.key == "Right" || e.key == "ArrowRight") {
@@ -75,7 +80,7 @@ function draw() {
   if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
     dx = -dx;
   } else if (y + dy > canvas.height - ballRadius) {
-    if (x > paddleXB && x < paddleXB + paddleWidth) {
+    if (x + ballRadius > paddleXB && x < paddleXB + paddleWidth) {
       dy = -dy;
     } else if (document.getElementById("computerScore").innerHTML == 9) {
       $("#you-lose-modal").modal();
@@ -84,7 +89,7 @@ function draw() {
       ballReset();
     }
   } else if (y + dy < ballRadius) {
-    if (x > paddleXT && x < paddleXT + paddleWidth) {
+    if (x + ballRadius > paddleXT && x < paddleXT + paddleWidth) {
       dy = -dy;
       dy++;
     } else if (document.getElementById("playerOneScore").innerHTML == 9) {
@@ -96,17 +101,18 @@ function draw() {
   }
 
 
-  if (rightPressed && paddleXB < canvas.width - paddleWidth + 2) {
+  if (rightPressed && paddleXB < canvas.width - paddleWidth) {
     paddleXB += 10;
   } else if (leftPressed && paddleXB > 0) {
     paddleXB -= 10;
   }
 
-  if (rightPressed && paddleXT > 0) {
-    paddleXT -= 10;
-  } else if (leftPressed && paddleXT < canvas.width - paddleWidth + 2) {
-    paddleXT += 10;
+  if (x + dx > paddleXT + paddleWidth && paddleXT < canvas.width - paddleWidth) {
+    paddleXT += 2.5;
+  } else if (x + dx < paddleXT) {
+    paddleXT -= 2.5;
   }
+
 
   x += dx;
   y += dy;
