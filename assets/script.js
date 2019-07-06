@@ -15,13 +15,9 @@ var leftPressed = false;
 var scoreComputer = 1;
 var scorePlayerOne = 1;
 
-
-
-
+window.addEventListener('load', drawBall(), drawPaddleBottom(), drawPaddleTop());
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
-
-window.onload(drawBall(), drawPaddleBottom(), drawPaddleTop());
 
 function keyDownHandler(e) {
   if (e.key == "Right" || e.key == "ArrowRight") {
@@ -71,6 +67,7 @@ function ballReset() {
   dy = -3;
 }
 
+
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBall();
@@ -108,9 +105,9 @@ function draw() {
   }
 
   if (x + dx > paddleXT + paddleWidth && paddleXT < canvas.width - paddleWidth) {
-    paddleXT += 2.5;
+    paddleXT += 2.95;
   } else if (x + dx < paddleXT) {
-    paddleXT -= 2.5;
+    paddleXT -= 2.95;
   }
 
 
