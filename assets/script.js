@@ -2,8 +2,8 @@ var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var x = canvas.width / 2;
 var y = canvas.height / 2;
-var dx = 3;
-var dy = -3;
+var dx = 2;
+var dy = -2;
 var ballRadius = 10;
 var color = "white"
 var paddleHeight = 10;
@@ -79,6 +79,7 @@ function draw() {
   } else if (y + dy > canvas.height - ballRadius) {
     if (x + ballRadius > paddleXB && x < paddleXB + paddleWidth) {
       dy = -dy;
+      dx++;
     } else if (document.getElementById("computerScore").innerHTML == 9) {
       $("#you-lose-modal").modal();
     } else {
@@ -105,9 +106,9 @@ function draw() {
   }
 
   if (x + dx > paddleXT + paddleWidth && paddleXT < canvas.width - paddleWidth) {
-    paddleXT += 2.95;
+    paddleXT += 5;
   } else if (x + dx < paddleXT) {
-    paddleXT -= 2.95;
+    paddleXT -= 5;
   }
 
 
