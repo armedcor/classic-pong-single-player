@@ -1,10 +1,24 @@
 * {
   padding: 0;
   margin: 0;
+  font-family: 'Press Start 2P', cursive;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html {
+  overflow-x: hidden;
 }
 
 body {
   background-color: #f4d50cc9;
+}
+
+.player-one-score,
+.computer-score {
+  padding-top: 150px
 }
 
 canvas {
@@ -16,6 +30,7 @@ canvas {
 
 .score-board {
   text-align: center;
+  font-family: 'Press Start 2P', cursive;
 }
 
 .game-info-button {
@@ -25,18 +40,35 @@ canvas {
 
 .start-game {
   text-align: center;
-  padding-top: 20px;
+  margin: 25px;
+
 }
+
+
 
 .jumbotron {
   background-color: black;
   letter-spacing: 15px;
+  padding: 25px;
 }
 
 h1 {
-  font-size: 60px;
-  font-family: 'Futura';
+  font-size: 6.5rem;
+  font-family: 'Press Start 2P', cursive;
   color: #fff;
   text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #16f800, 0 0 30px #ff0080, 0 0 40px #ff00ac, 0 0 55px #16f800, 0 0 75px #ff0ac6;
   text-align: center;
+}
+
+
+footer {
+  border-color: transparent;
+  text-align: center;
+  background-color: rgb(11, 4, 22);
+  padding: 15px;
+  color: #fff;
+}
+
+#copy-right {
+  padding-bottom: 25px;
 }

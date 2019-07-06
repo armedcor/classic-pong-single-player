@@ -117,3 +117,7 @@ function draw() {
   requestAnimationFrame(draw);
 
 }
+
+$(document).ready(function () {
+  $('#welcomeModal').modal('show');
+});
